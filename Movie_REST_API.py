@@ -101,9 +101,14 @@ def post_movie(current_user):
 	if current_user['admin']==True:
 		new_movie = {}
 		new_movie['title'] = data['title']
+		new_movie['featured'] = False
+		if 'featured' in data:
+			new_movie['featured'] = data['featured']
 		new_movie['year'] = data['year']
+		new_movie['urlPoster'] = data['urlPoster']
+		new_movie['IMDbrating'] = data['IMDbrating']
 		new_movie['description'] = data['description']
-		new_movie['poster_url'] = data['poster_url']
+		new_movie['urlTrailer'] = data['urlTrailer']
 		new_movie['comments'] = []
 		db.movies.insert_one(new_movie)
 		return json.dumps(new_movie, default=json_util.default)
@@ -113,7 +118,6 @@ def post_movie(current_user):
 @app.route('/movies', methods=['DELETE'])
 @token_required
 def delete_movies(current_user):
-	data = request.data
 	if current_user['admin']==True:
 		db.movies.delete_many({})
 		db.comments.delete_many({})
@@ -162,12 +166,15 @@ def post_comments(current_user, movie_id):
 @app.route('/movies/<movie_id>/comments', methods=['DELETE'])
 @token_required
 def delete_comments(current_user, movie_id):
-	selected_movie = db.movies.find_one({"_id": ObjectId(movie_id)})
-	for cid in selected_movie['comments']:
-		db.comments.delete_one({"_id": cid})
-	selected_movie['comments'] = []
-	db.movies.save(selected_movie)
-	return json.dumps('All Comments for this movie deleted', default=json_util.default)
+	if current_user['admin']:
+		selected_movie = db.movies.find_one({"_id": ObjectId(movie_id)})
+		for cid in selected_movie['comments']:
+			db.comments.delete_one({"_id": cid})
+		selected_movie['comments'] = []
+		db.movies.save(selected_movie)
+		return json.dumps('All Comments for this movie deleted', default=json_util.default)
+	else:
+		return json.dumps('You are not authorized to operate it', default=json_util.default)
 
 @app.route('/movies/<movie_id>/comments/<comment_id>')
 def comment(movie_id, comment_id):
