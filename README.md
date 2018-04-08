@@ -1,6 +1,6 @@
 ## Introduction ##
 
-This is a REST API server for the fresh-tomatoes website. You can execute app.py or dockerize it to run it. To dockerize it, execute "docker-compose build" to build an image, and then execute "docker-compose up" to run the container.
+This is a REST API server for the fresh-tomatoes website(http://13.57.178.170:3000/). You can execute app.py or dockerize it to run it. To dockerize it, execute "docker-compose build" to build an image, and then execute "docker-compose up".
 
 ## API Guide ##
 
@@ -30,7 +30,7 @@ This is a REST API server for the fresh-tomatoes website. You can execute app.py
 	*Get All movies' information*
 	
 	POST: http://localhost:5000/movies
-	*Create a new movie for admin users*
+	*Create a new movie*
 		Header:
 			x-access-token: token
 		Body Prarms:
@@ -58,7 +58,7 @@ This is a REST API server for the fresh-tomatoes website. You can execute app.py
 		Path Params:
 			movie_id: string
 
-Comments:
+### Comments ###
 
 	GET: http://localhost:5000/movies/<movie_id>/comments
 	*Get comments of a movie*
