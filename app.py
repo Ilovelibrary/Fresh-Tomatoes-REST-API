@@ -11,7 +11,7 @@ from bson import json_util
 
 from functools import wraps
 
-client = MongoClient('localhost', 27017)   # replace 'localhost' with (os.environ['MOVIERESTAPI_DB_1_PORT_27017_TCP_ADDR']) when dockerizing the app
+client = MongoClient(os.environ['MOVIERESTAPI_DB_1_PORT_27017_TCP_ADDR'], 27017)   # replace (os.environ['MOVIERESTAPI_DB_1_PORT_27017_TCP_ADDR']) with 'localhost' when excute this app.py
 db = client.movie
 
 # Define a decorator for authenication
