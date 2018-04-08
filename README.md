@@ -1,6 +1,11 @@
 ## Introduction ##
 
-This is a REST API server for the fresh-tomatoes website(http://13.57.178.170:3000/). You can execute app.py or dockerize it to run it. To dockerize it, execute "docker-compose build" to build an image, and then execute "docker-compose up".
+This is a REST API server for the fresh-tomatoes website(http://13.57.178.170:3000/). 
+
+To run it, 
+
+1. You can start a local mongodb and change the MongoClient in app.py to connect localhost:27017, then execute app.py (make sure all libraries are installed). Or
+2. Execute "docker-compose build", and then execute "docker-compose up".
 
 ## API Guide ##
 
